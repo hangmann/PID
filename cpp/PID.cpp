@@ -95,6 +95,7 @@ PIDController<T>::PIDController(double p, double i, double d, T (*pidSource)(voi
   _pidOutput = pidOutput;
   _pidSourceContext = 0;
   _pidOutputContext = 0;
+  context = 0;
 }
 
 /**
