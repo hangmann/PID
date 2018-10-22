@@ -1,6 +1,5 @@
-#ifndef PID_H
-#define PID_H
-#endif
+#ifndef _PID_H
+#define _PID_H
 
 template <class T>
 class PIDController
@@ -89,3 +88,5 @@ private:
   void (*_pidOutputContext)(T output, void* context);
   unsigned long (*_getSystemTime)();
 };
+
+#endif //_PID_H
