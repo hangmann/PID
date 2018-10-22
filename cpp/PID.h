@@ -5,7 +5,7 @@ template <class T>
 class PIDController
 {
 public:
-  PIDController(double p, double i, double d, T (*pidSource)(void* fContext), void (*pidOutput)(T output, void* fContext));
+  PIDController(double p, double i, double d, T (*pidSource)(), void (*pidOutput)(T output));
   PIDController(double p, double i, double d, T (*pidSource)(void* fContext), void (*pidOutput)(T output, void* fContext), void* context);
   void tick();
   void setTarget(T t);

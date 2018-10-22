@@ -56,6 +56,7 @@
 
 #include "PID.h"
 
+
 /**
  * Constructs the PIDController object with PID Gains and function pointers
  * for retrieving feedback (pidSource) and delivering output (pidOutput).
@@ -68,7 +69,7 @@
  * @param (*pidOutput) The function pointer for delivering system output.
  */
 template <class T>
-PIDController<T>::PIDController(double p, double i, double d, T (*pidSource)(void* context), void (*pidOutput)(T output, void* context))
+PIDController<T>::PIDController(double p, double i, double d, T (*pidSource)(), void (*pidOutput)(T output))
 {
   _p = p;
   _i = i;
