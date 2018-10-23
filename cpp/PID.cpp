@@ -56,6 +56,12 @@
 
 #include "PID.h"
 
+int main(int argc, char *argv[]) {
+
+	return 1;
+
+}
+
 
 /**
  * Constructs the PIDController object with PID Gains and function pointers
