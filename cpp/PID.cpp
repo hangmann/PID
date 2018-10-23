@@ -801,8 +801,8 @@ void PIDController<T>::reset()
  * Lets the compiler/linker know what types of templates we are expecting to
  * have this class instantiated with.  Basically, it prepares the program to
  * make a PIDController of any of these defined types.
- *
+ */
 template class PIDController<int>;
 template class PIDController<long>;
 template class PIDController<float>;
-template class PIDController<double>; */
+template class PIDController<double>;
