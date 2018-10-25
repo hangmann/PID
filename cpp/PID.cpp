@@ -504,6 +504,38 @@ void PIDController<T>::setOutputBounds(T lower, T upper)
 }
 
 /**
+ * Sets bound which limit the upper extreme that this PIDController
+ * will ever generate as output.  Setting output bounds automatically enables
+ * output bounds.
+ * @param upper The upper output bound.
+ */
+template <class T>
+void PIDController<T>::setOutputUpperBound(T upper)
+{
+  if(upper > this->outputLowerBound)
+  {
+    outputBounded = true;
+    this->outputUpperBound = upper;
+  }
+}
+
+/**
+ * Sets bound which limit the lower extreme that this PIDController
+ * will ever generate as output.  Setting output bounds automatically enables
+ * output bounds.
+ * @param lower The lower output bound.
+ */
+template <class T>
+void PIDController<T>::setOutputLowerBound(T lower)
+{
+  if(lower < this->outputUpperBound)
+  {
+    outputBounded = true;
+    this->outputLowerBound = lower;
+  }
+}
+
+/**
  * Returns the lower output bound of this PIDController.
  * @return The lower output bound of this PIDController.
  */

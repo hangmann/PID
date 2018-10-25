@@ -30,6 +30,8 @@ public:
   void setOutputBounded(bool bounded);
   bool isOutputBounded();
   void setOutputBounds(T lower, T upper);
+  void setOutputLowerBound(T lower);
+  void setOutputUpperBound(T upper);
   T getOutputLowerBound();
   T getOutputUpperBound();
   void setFeedbackWrapped(bool wrap);
