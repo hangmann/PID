@@ -238,19 +238,19 @@ void PIDController<T>::tick()
     T iTerm;
     T dTerm;
 
-    if (std::isnan(error * _p) || std::isinf(error * _p)) {
+    if (std::isnan(error * _p) || std::isinf(error * _p) || std::isnan(-error * _p) || std::isinf(-error * _p)) {
     	pTerm = 0;
     } else {
     	pTerm = error * _p;
     }
 
-    if (std::isnan(integralCumulation * _i) || std::isinf(integralCumulation * _i)) {
+    if (std::isnan(integralCumulation * _i) || std::isinf(integralCumulation * _i) || std::isnan(-integralCumulation * _i) || std::isinf(-integralCumulation * _i)) {
     	iTerm = 0;
     } else {
     	iTerm = integralCumulation * _i;
     }
 
-    if (std::isnan(cycleDerivative * _d) || std::isinf(cycleDerivative * _d)) {
+    if (std::isnan(cycleDerivative * _d) || std::isinf(cycleDerivative * _d) || std::isnan(-cycleDerivative * _d) || std::isinf(-cycleDerivative * _d)) {
     	dTerm = 0;
     } else {
     	dTerm = cycleDerivative * _d;
