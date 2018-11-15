@@ -234,8 +234,30 @@ void PIDController<T>::tick()
     if(integralCumulation > maxCumulation) integralCumulation = maxCumulation;
     if(integralCumulation < -maxCumulation) integralCumulation = -maxCumulation;
 
+    T pTerm;
+    T iTerm;
+    T dTerm;
+
+    if (std::isnan(error * _p) || std::isinf(error * _p)) {
+    	pTerm = 0;
+    } else {
+    	pTerm = error * _p;
+    }
+
+    if (std::isnan(integralCumulation * _i) || std::isinf(integralCumulation * _i)) {
+    	iTerm = 0;
+    } else {
+    	iTerm = integralCumulation * _i;
+    }
+
+    if (std::isnan(cycleDerivative * _d) || std::isinf(cycleDerivative * _d)) {
+    	dTerm = 0;
+    } else {
+    	dTerm = cycleDerivative * _d;
+    }
+
     //Calculate the system output based on data and PID gains.
-    output = (int) ((error * _p) + (integralCumulation * _i) + (cycleDerivative * _d));
+    output = (int) ((pTerm) + (iTerm) + (dTerm));
 
     //Save a record of this iteration's data.
     lastFeedback = currentFeedback;

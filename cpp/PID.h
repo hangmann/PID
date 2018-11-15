@@ -1,6 +1,9 @@
 #ifndef _PID_H
 #define _PID_H
 
+#include <cmath>
+#include <cfloat>
+
 template <class T>
 class PIDController
 {
