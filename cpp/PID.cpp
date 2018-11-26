@@ -845,11 +845,9 @@ void PIDController<T>::registerTimeFunction(unsigned long (*getSystemTime)())
 template <class T>
 void PIDController<T>::reset()
 {
-	this->_p = 0.0f;
-	this->_i = 0.0f;
-	this->_d = 0.0f;
-
+	this->error = 0;
 	this->integralCumulation = 0;
+	this->cycleDerivative = 0;
 	this->output = 0;
 }
 
