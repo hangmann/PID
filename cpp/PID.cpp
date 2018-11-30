@@ -55,7 +55,7 @@
  */
 
 #include "PID.h"
-
+#include <iostream>
 int main(int argc, char *argv[]) {
 
 	return 1;
@@ -97,6 +97,8 @@ PIDController<T>::PIDController(double p, double i, double d, T (*pidSource)(), 
   outputBounded = false;
   outputLowerBound = 0;
   outputUpperBound = 0;
+  feedbackWrapLowerBound = -500;
+  feedbackWrapUpperBound = 500;
   timeFunctionRegistered = false;
   _pidSource = pidSource;
   _pidOutput = pidOutput;
@@ -194,6 +196,10 @@ void PIDController<T>::tick()
       else if(altErr2Abs < regErrAbs && altErr2Abs < altErr1Abs) //If altErr2Abs is smallest
       {
         error = altErr2Abs;
+      }
+      else {
+std::cout << "p error else \n";
+        error = regErr;
       }
     }
     else
