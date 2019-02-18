@@ -80,25 +80,25 @@ PIDController<T>::PIDController(double p, double i, double d, T (*pidSource)(), 
   _p = p;
   _i = i;
   _d = d;
-  target = 0;
-  output = 0;
+  target = 0.0f;
+  output = 0.0f;
   enabled = true;
-  currentFeedback = 0;
-  lastFeedback = 0;
-  lastError = 0;
+  currentFeedback = 0.0f;
+  lastFeedback = 0.0f;
+  lastError = 0.0f;
   currentTime = 0L;
   lastTime = 0L;
-  integralCumulation = 0;
-  maxCumulation = 30000;
+  integralCumulation = 0.0f;
+  maxCumulation = 30000.0f;
   inputBounded = false;
   outputBounded = false;
-  inputLowerBound = 0;
-  inputUpperBound = 0;
+  inputLowerBound = 0.0f;
+  inputUpperBound = 0.0f;
   outputBounded = false;
-  outputLowerBound = 0;
-  outputUpperBound = 0;
-  feedbackWrapLowerBound = -500;
-  feedbackWrapUpperBound = 500;
+  outputLowerBound = 0.0f;
+  outputUpperBound = 0.0f;
+  feedbackWrapLowerBound = -500.0f;
+  feedbackWrapUpperBound = 500.0f;
   timeFunctionRegistered = false;
   _pidSource = pidSource;
   _pidOutput = pidOutput;
@@ -175,14 +175,14 @@ void PIDController<T>::tick()
        * unless all three are equal, in which case it does not matter which path
        * is taken.
        */
-      int regErr = target - currentFeedback;
-      int altErr1 = (target - feedbackWrapLowerBound) + (feedbackWrapUpperBound - currentFeedback);
-      int altErr2 = (feedbackWrapUpperBound - target) + (currentFeedback - feedbackWrapLowerBound);
+      float regErr = target - currentFeedback;
+      float altErr1 = (target - feedbackWrapLowerBound) + (feedbackWrapUpperBound - currentFeedback);
+      float altErr2 = (feedbackWrapUpperBound - target) + (currentFeedback - feedbackWrapLowerBound);
 
       //Calculate the absolute values of each error.
-      int regErrAbs = (regErr >= 0) ? regErr : -regErr;
-      int altErr1Abs = (altErr1 >= 0) ? altErr1 : -altErr1;
-      int altErr2Abs = (altErr2 >= 0) ? altErr2 : -altErr2;
+      float regErrAbs = (regErr >= 0.0f) ? regErr : -regErr;
+      float altErr1Abs = (altErr1 >= 0.0f) ? altErr1 : -altErr1;
+      float altErr2Abs = (altErr2 >= 0.0f) ? altErr2 : -altErr2;
 
       //Use the error with the smallest absolute value
       if(regErrAbs <= altErr1Abs && regErr <= altErr2Abs) //If reguErrAbs is smallest
@@ -218,7 +218,7 @@ std::cout << "p error else \n";
       long deltaTime = currentTime - lastTime;
 
       //Calculate the integral of the feedback data since last cycle.
-      int cycleIntegral = (lastError + error / 2) * deltaTime;
+      int cycleIntegral = (lastError + error / 2.0f) * deltaTime;
 
       //Add this cycle's integral to the integral cumulation.
       integralCumulation += cycleIntegral;
@@ -245,22 +245,22 @@ std::cout << "p error else \n";
     T dTerm;
 
     if (std::isnan(error * _p) || std::isinf(error * _p) || std::isnan(-error * _p) || std::isinf(-error * _p)) {
-    	pTerm = 0;
-    	error = 0;
+    	pTerm = 0.0f;
+    	error = 0.0f;
     } else {
     	pTerm = error * _p;
     }
 
     if (std::isnan(integralCumulation * _i) || std::isinf(integralCumulation * _i) || std::isnan(-integralCumulation * _i) || std::isinf(-integralCumulation * _i)) {
-    	iTerm = 0;
+    	iTerm = 0.0f;
     	integralCumulation = 0;
     } else {
     	iTerm = integralCumulation * _i;
     }
 
     if (std::isnan(cycleDerivative * _d) || std::isinf(cycleDerivative * _d) || std::isnan(-cycleDerivative * _d) || std::isinf(-cycleDerivative * _d)) {
-    	dTerm = 0;
-    	cycleDerivative = 0;
+    	dTerm = 0.0f;
+    	cycleDerivative = 0.0f;
     } else {
     	dTerm = cycleDerivative * _d;
     }
@@ -349,8 +349,8 @@ void PIDController<T>::setEnabled(bool e)
   //If the PIDController was enabled and is being disabled.
   if(!e && enabled)
   {
-    output = 0;
-    integralCumulation = 0;
+    output = 0.0f;
+    integralCumulation = 0.0f;
   }
   enabled = e;
 }
@@ -403,7 +403,7 @@ template <class T>
 void PIDController<T>::setMaxIntegralCumulation(T max)
 {
   //If the new max value is less than 0, invert to make positive.
-  if(max < 0)
+  if(max < 0.0f)
   {
     max = -max;
   }
@@ -851,10 +851,10 @@ void PIDController<T>::registerTimeFunction(unsigned long (*getSystemTime)())
 template <class T>
 void PIDController<T>::reset()
 {
-	this->error = 0;
-	this->integralCumulation = 0;
-	this->cycleDerivative = 0;
-	this->output = 0;
+	this->error = 0.0f;
+	this->integralCumulation = 0.0f;
+	this->cycleDerivative = 0.0f;
+	this->output = 0.0f;
 }
 
 
