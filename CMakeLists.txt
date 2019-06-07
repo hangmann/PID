@@ -1,5 +1,5 @@
-#  minimum required cmake version: 3.8.0
-cmake_minimum_required(VERSION 3.8.0)
+#  minimum required cmake version: 3.5.0
+cmake_minimum_required(VERSION 3.5.0)
 
 SET(APPNAME pid)
 SET(LIBNAME vfpid)
